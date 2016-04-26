@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%=title%></title>
+	<!--DEFAULT STYLE-->
+	<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+	
+	
+</head>
+<body>
+	<%if (locals.header) { %>
+		<%- include('partials/' + header) %>
+	<% } else { %>
+		<%- include('partials/header') %>
+	<% } %>
+	<div class="<%= locals.confluid ? 'container-fluid' : 'container' %>">
+		<div class="page-header">
+			<div class="row">
+				<br>
+				<div class="col-lg-12">
+					<%if (locals.errors) { %>
+					<div class="alert alert-danger">
+						<% errors.forEach(function(error) { %>
+						<p>• <%=error.message%></p>
+						<% }) %>
+					</div>
+					<% } %>
+				</div>
+				<%- include('pages/' + page, {test: 'testing'}) %>
+			</div>
+		</div>
+		<%- include('partials/footer') %>
+	</div>
+	<!--DEFAULT SCRIPT-->
+	<script type="text/javascript" src="/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!--PAGE SCRIPT -->
+	<% if (locals.js) { %>
+		<% locals.js.forEach(function(script) { %>
+	<script type="text/javascript" src="<%=script.src%>"></script>
+		<% }) %>
+	<% } %>
+</body>
+</html>
